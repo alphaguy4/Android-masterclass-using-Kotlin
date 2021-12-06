@@ -2,8 +2,7 @@ fun main(args: Array<String>) {
     println("Hello World!")
 
     // Variable types, arithmetics
-    var name: String
-    name = "Kartikay Singh"
+    val name = "Kartikay Singh"
     println("Name: $name")
 
     val daily: Int = 50
