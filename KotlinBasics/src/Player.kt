@@ -3,6 +3,7 @@
 class Player(val name: String, var level: Int = 1, var lives: Int = 3, var score: Int = 100) {
 
     var weapon: Weapon = Weapon("fist", 1)
+    val inventory = ArrayList<Loot>()
 
     fun show() {
         println("""
@@ -13,6 +14,23 @@ class Player(val name: String, var level: Int = 1, var lives: Int = 3, var score
             Weapon: ${weapon.name}
             Damage: ${weapon.inflictDamage}
         """.trimIndent())
+    }
+
+    override fun toString(): String {
+        return """
+                        Name:  $name
+                        Lives: $lives
+                        Level: $level
+                        Score: $score
+                        Weapon: ${weapon.name}
+                        Damage: ${weapon.inflictDamage}
+        """.trimIndent()
+    }
+
+    fun showInventory() {
+        println("$name's Inventory")
+        println(inventory.get(0).name)
+        println("========================")
     }
 }
 
@@ -37,7 +55,6 @@ fun main(args: Array<String>) {
     val player4 = Player("Shay", 1,2,3000)
     player4.show()
 
-
     println(player4.weapon.name.uppercase())
     println(player4.weapon.inflictDamage)
 
@@ -51,5 +68,12 @@ fun main(args: Array<String>) {
 
     println(axe.inflictDamage)
     println(player3.weapon.inflictDamage) //  by reference will be 100
+
+    val redPotion = Loot("Red Potion", LootType.POTION, 7.5)
+
+    player4.inventory.add(redPotion)
+    player4.showInventory()
+
+    println(player3)
 
 }
