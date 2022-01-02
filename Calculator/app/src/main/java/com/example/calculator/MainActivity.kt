@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         buttonPlus.setOnClickListener(opListener)
         buttonMinus.setOnClickListener(opListener)
 
-        buttonNeg?.setOnClickListener{
+        buttonNeg.setOnClickListener{
             val value = newNumber.text.toString()
             if(value.isEmpty()) {
                 newNumber.setText("-")
@@ -82,6 +82,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // reset the calculator
+        buttonClear.setOnClickListener {
+            operand1 = null
+            operation.text = ""
+            result.setText("")
+            newNumber.setText("")
+        }
+
     }
 
     private fun performOperation(value: Double, operation: String) {
