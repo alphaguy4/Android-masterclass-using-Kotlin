@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.NumberFormatException
@@ -14,9 +13,6 @@ private const val STATE_OPERAND1 = "operand1"
 private const val STATE_OPERAND1_STORED = "operandStored"
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var result: EditText
-    private lateinit var newNumber: EditText
 
     /*
     * By default lazy is thread safe
@@ -33,10 +29,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Redundant, as synthetic properties can be used
-        result = findViewById(R.id.result)
-        newNumber = findViewById(R.id.newNumber)
 
         // Setting up listeners for numerical buttons
         val listener = View.OnClickListener { view ->
@@ -75,6 +67,21 @@ class MainActivity : AppCompatActivity() {
         buttonMultiply.setOnClickListener(opListener)
         buttonPlus.setOnClickListener(opListener)
         buttonMinus.setOnClickListener(opListener)
+
+        buttonNeg?.setOnClickListener{
+            val value = newNumber.text.toString()
+            if(value.isEmpty()) {
+                newNumber.setText("-")
+            } else {
+                try {
+                    var doubleValue = value.toDouble()
+                    doubleValue *= -1
+                    newNumber.setText(doubleValue.toString())
+                } catch (e: NumberFormatException) {
+                    // newNumber was set to "-" or ".", so clear it
+                }
+            }
+        }
     }
 
     private fun performOperation(value: Double, operation: String) {
